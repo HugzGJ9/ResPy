@@ -49,3 +49,8 @@ Shows the monthly capture rate for renewable assets in the French power market.
 
 🔗 [PPA Class](./Asset_Modeling/Energy_Modeling/PPA/README.md)
 
+---
+
+### ⚡⚡ Renewable Power Generation Forecast – Day-Ahead
+
+🔗 [FORECAST Documentation](./Model/Power/README.md)
