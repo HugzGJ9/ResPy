@@ -1,113 +1,115 @@
-# PPA Class – Renewable Energy Contract Modeling
+# ⚡ PPA Class – Renewable Energy Contract Modeling
 
-## Purpose
+## 🎯 Purpose
 
-The `PPA` class was developed to establish a structured system for managing Power Purchase Agreements (PPAs) and Renewable Energy Source (RES) portfolios. It helps simulate asset performance, evaluate risks, and estimate contract values under various scenarios.
+The `PPA` class is designed to provide a robust framework for modeling **Power Purchase Agreements (PPAs)** and **Renewable Energy Source (RES)** portfolios. It enables:
 
----
-
-## Attributes
-
-Each `PPA` instance includes the following attributes:
-
-- `id`: Unique identifier of the PPA  
-- `site_name`: Name of the renewable asset  
-- `start_date`: Contract start date  
-- `end_date`: Contract end date  
-- `capacity`: Installed capacity (MW)  
-- `techno`: Technology type (e.g., solar, wind)  
-- `pricing_type`: PPA pricing model (e.g., pay-as-produced, baseload)  
-- `country`: Location of the asset  
-- `proxy`: Time series representing estimated generation  
-- `mark`: Valuation metric or reference price  
-- `p50`: Expected annual generation at 50% probability (MWh)
+- Simulation of renewable asset generation profiles
+- Quantification of production risks (e.g., p50, p90)
+- Evaluation of market capture and revenue potential
+- Estimation of contract valuation under different pricing structures
 
 ---
 
-## I. `buildProxy()` Method
+## 🏗️ Class Structure
 
-The `buildProxy()` method is used to construct a proxy generation dataset for a renewable energy asset.
+Each `PPA` instance is defined by the following key attributes:
 
-This proxy can be based on:
-
-- **Historical production data** (cleaned and processed)
-- **Synthetic generation data** (theoretical generation profiles based on weather inputs)
-
-### Why is this important?
-
-- The **value of a renewable energy park** depends on when it produces power relative to market prices.  
-  A park generating during **high-price hours** has significantly more value than one producing during low or negative price hours.
-- By analyzing a proxy (or historical) dataset, one can estimate:
-  - The expected **p50 volume**
-  - The **revenue potential** under different market scenarios
-
----
-
-## II. Synthetic Generation Modeling
-
-### A. Solar Generation
-
-To model solar generation:
-
-1. **Location**: Montluçon, France (as used in this project)  
-   Source: [Global Solar Atlas](https://globalsolaratlas.info/detail?c=46.34003,2.607396,11&m=site&s=46.34003,2.607396)
-
-   ![image](https://github.com/user-attachments/assets/7e19ce3f-4250-46fd-91cd-8afba313d7ed)
-
-
-3. **Method**:
-   - Download **average load factors** by month and hour for the site.
-   - Merge this with monthly/hourly **solar radiation data** (weather-based).
-   - Plot the scatter of radiation vs. load factor.
-
-![image](https://github.com/user-attachments/assets/1b1ea9d5-82b8-476a-b7d1-82e969a5760e)
-
-
-4. **Model**:
-   - Fit a **polynomial regression** to capture the relationship between solar radiation and energy output.
-   - This model is then used to simulate **historical generation** using past weather data.
-
-![image](https://github.com/user-attachments/assets/05dac703-13a2-4eb1-9478-15c7580ca299)
-
-
-### B. Wind Generation
-
-For wind assets:
-
-1. **Wind Resource Data**:  
-   Source: [Global Wind Atlas](https://globalwindatlas.info/en/)
-
-2. **Method**:
-   - Use wind speed data as input.
-   - Apply a wind power curve or generation model to convert wind speed into energy output.
-
-![image](https://github.com/user-attachments/assets/2a158614-d506-4465-ac72-544bebe11ee7)
-
-
-3. **Output**:
-   - The resulting synthetic time series represents theoretical generation based on past weather conditions.
+| Attribute       | Description                                                                 |
+|----------------|-----------------------------------------------------------------------------|
+| `id`           | Unique identifier of the PPA                                                 |
+| `site_name`    | Name of the renewable site                                                  |
+| `start_date`   | Contract start date                                                          |
+| `end_date`     | Contract end date                                                            |
+| `capacity`     | Installed capacity in megawatts (MW)                                         |
+| `techno`       | Technology type (`solar`, `wind`, etc.)                                      |
+| `pricing_type` | Pricing model (`fix`, `floating`, etc.)                                     |
+| `country`      | Country of operation                                                         |
+| `proxy`        | Time serie representing simulated or historical past generation                  |
+| `mark`         | Time serie representing simulated future generation                                |
+| `p50`          | Expected annual generation at 50% probability level (MWh)                    |
 
 ---
 
-### C. Realism Enhancement
+## 🧮 Method: `buildProxy()`
 
-To simulate **real-world variability**:
+The `buildProxy()` method constructs a generation proxy for the renewable asset. This can be based on:
 
-- Add **normally distributed noise** around the modeled generation values.
-- This mimics daily operational fluctuations and measurement uncertainties, making the synthetic data more suitable for backtesting.
+- **Historical data**: Cleaned, time-aligned real production records
+- **Synthetic data**: Modeled generation based on weather inputs and asset characteristics
+
+### 🔍 Why It Matters
+
+> The *timing* of generation is just as critical as the *volume*.
+
+A solar or wind park that produces during peak price hours will generate significantly more revenue than one producing at off-peak times. The proxy allows analysts to:
+
+- Estimate expected volumes (e.g., p50)
+- Backtest value capture under real price curves
+- Compare different pricing scheme outcomes (e.g., fixed vs floating)
 
 ---
 
-## Summary
+## 🌞 Synthetic Generation – Solar
 
-The `PPA` class offers a foundational tool for modeling RES contracts and generation behavior. By simulating realistic generation time series, users can:
+### 🗺️ Location
 
-- Estimate production risk (p50, p90)
-- Assess market capture potential
-- Support valuation and hedging strategies
+- **Site Example**: Montluçon, France  
+- **Source**: [Global Solar Atlas](https://globalsolaratlas.info/detail?c=46.34003,2.607396,11&m=site&s=46.34003,2.607396)
+
+<img src="https://github.com/user-attachments/assets/7e19ce3f-4250-46fd-91cd-8afba313d7ed" width="500"/>
+
+### ⚙️ Methodology
+
+1. **Collect** hourly/monthly average load factors from the site
+2. **Merge** with corresponding solar radiation data
+3. **Visualize**: Scatter plot of radiation vs load factor
+
+   <img src="https://github.com/user-attachments/assets/1b1ea9d5-82b8-476a-b7d1-82e969a5760e" width="500"/>
+
+5. **Model**: Fit a **polynomial regression** (e.g., degree 2 or 3) to simulate output from radiation
+
+   <img src="https://github.com/user-attachments/assets/05dac703-13a2-4eb1-9478-15c7580ca299" width="500"/>
 
 ---
 
-## Contact
+## 🌬️ Synthetic Generation – Wind
 
-Feel free to reach out at : hugo.lambert.perso@gmail.com.
+### 🌍 Resource Data
+
+- **Source**: [Global Wind Atlas](https://globalwindatlas.info/en/)
+
+### ⚙️ Methodology
+
+1. Input wind speed time series (e.g., hourly from weather reanalysis)
+2. Apply wind turbine power curve (custom or standardized)
+3. Generate synthetic output
+
+   <img src="https://github.com/user-attachments/assets/2a158614-d506-4465-ac72-544bebe11ee7" width="500"/>
+
+---
+
+## 🎲 Realism & Noise Modeling
+
+To enhance realism in synthetic generation:
+
+- Add **normally distributed noise** to simulate measurement errors and operational variability
+- This enhances the dataset's suitability for **backtesting and valuation stress-testing**
+
+---
+
+## ✅ Summary
+
+The `PPA` class is a foundational module for simulating, analyzing, and valuing renewable energy contracts. It enables:
+
+- 📊 Production risk analysis (e.g., p50, p90)
+- 💰 Revenue and market capture forecasting
+- ⚖️ Comparison of PPA pricing structures
+- 🔍 Contract valuation under realistic scenarios
+
+---
+
+## 📫 Contact
+
+For further information or collaboration inquiries:  
+📧 **hugo.lambert.perso@gmail.com**
