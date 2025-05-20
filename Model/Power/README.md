@@ -60,7 +60,7 @@ The primary goal is to model and forecast the renewable power output for the nex
    Outlier if z > 4
    ```
 
-SOLAR_Cleaning
+![image](https://github.com/user-attachments/assets/6d88aa55-9a08-4196-ac5d-11506baf3f4a)
 ---
 
 ### 🌬️ Wind Generation
@@ -79,7 +79,7 @@ SOLAR_Cleaning
    z = |r - median(r)| / MAD
    Outlier if z > 5
    ```
-WIND_Cleaning
+![image](https://github.com/user-attachments/assets/27bd30f1-d08d-4dee-aaed-de0ffdf13e70)
 ---
 
 ## 🤖 3. Model Training
@@ -103,6 +103,11 @@ WIND_Cleaning
 | `LGBMR_cleaned_tuned`     | WIND   | 639.42 | 836.27 | 0.875 |
 | `LGBMR_cleaned_tuned`     | SOLAR  | 128.53 | 229.83 | 0.997 |
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1871b462-a3e7-4048-a0e4-e0683a98ea43" width="400"/>
+  <img src="https://github.com/user-attachments/assets/8e80c70c-905c-434a-af2d-54f5489b1b31" width="400"/>
+</p>
+
 ---
 
 ## 📊 5. Dashboard
@@ -120,12 +125,6 @@ Track daily forecasts against actuals in near-real time:
 - Extend location coverage beyond central France
 - Add dynamic capacity estimation from asset metadata or satellite imagery
 - Integrate with electricity price forecasting module
-
----
-
-## 🧾 License
-
-MIT License — feel free to use and adapt the approach with proper attribution.
 
 ---
 
