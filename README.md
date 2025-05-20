@@ -1,113 +1,51 @@
-# PPA Class – Renewable Energy Contract Modeling
+# ⚡ ResPy – Energy Trading Tool
 
-## Purpose
+**ResPy** is a Python-based toolkit designed to centralize and process power market data for advanced analysis, forecasting, and decision support in energy trading.
 
-The `PPA` class was developed to establish a structured system for managing Power Purchase Agreements (PPAs) and Renewable Energy Source (RES) portfolios. It helps simulate asset performance, evaluate risks, and estimate contract values under various scenarios.
-
----
-
-## Attributes
-
-Each `PPA` instance includes the following attributes:
-
-- `id`: Unique identifier of the PPA  
-- `site_name`: Name of the renewable asset  
-- `start_date`: Contract start date  
-- `end_date`: Contract end date  
-- `capacity`: Installed capacity (MW)  
-- `techno`: Technology type (e.g., solar, wind)  
-- `pricing_type`: PPA pricing model (e.g., pay-as-produced, baseload)  
-- `country`: Location of the asset  
-- `proxy`: Time series representing estimated generation  
-- `mark`: Valuation metric or reference price  
-- `p50`: Expected annual generation at 50% probability (MWh)
+Its core purpose is to model and simulate a wide range of renewable assets—starting with **solar** and **wind farms**, and later extending to **battery storage systems**. ResPy also supports **backtesting of hedging strategies** and **automated analytics workflows** tailored for short-term electricity markets.
 
 ---
 
-## I. `buildProxy()` Method
+## 📊 Features and Highlights
 
-The `buildProxy()` method is used to construct a proxy generation dataset for a renewable energy asset.
+- **Asset Modeling**  
+  Simulate generation profiles and market behavior for RES assets (solar, wind, batteries).
 
-This proxy can be based on:
+- **Backtesting Framework**  
+  Evaluate and optimize hedging strategies using historical market data.
 
-- **Historical production data** (cleaned and processed)
-- **Synthetic generation data** (theoretical generation profiles based on weather inputs)
+- **Price Forecasting**  
+  Build models to forecast **Day-Ahead auction prices** and **forward products** along the power curve.
 
-### Why is this important?
+- **Automated Reporting**  
+  Automatically generate reports for **DA auctions**, including price trends, spreads, and asset performance.
 
-- The **value of a renewable energy park** depends on when it produces power relative to market prices.  
-  A park generating during **high-price hours** has significantly more value than one producing during low or negative price hours.
-- By analyzing a proxy (or historical) dataset, one can estimate:
-  - The expected **p50 volume**
-  - The **revenue potential** under different market scenarios
+- **RES Forecasting**  
+  Predict renewable generation based on weather and historical data.
 
----
-
-## II. Synthetic Generation Modeling
-
-### A. Solar Generation
-
-To model solar generation:
-
-1. **Location**: Montluçon, France (as used in this project)  
-   Source: [Global Solar Atlas](https://globalsolaratlas.info/detail?c=46.34003,2.607396,11&m=site&s=46.34003,2.607396)
-
-   ![image](https://github.com/user-attachments/assets/7e19ce3f-4250-46fd-91cd-8afba313d7ed)
-
-
-3. **Method**:
-   - Download **average load factors** by month and hour for the site.
-   - Merge this with monthly/hourly **solar radiation data** (weather-based).
-   - Plot the scatter of radiation vs. load factor.
-
-![image](https://github.com/user-attachments/assets/1b1ea9d5-82b8-476a-b7d1-82e969a5760e)
-
-
-4. **Model**:
-   - Fit a **polynomial regression** to capture the relationship between solar radiation and energy output.
-   - This model is then used to simulate **historical generation** using past weather data.
-
-![image](https://github.com/user-attachments/assets/05dac703-13a2-4eb1-9478-15c7580ca299)
-
-
-### B. Wind Generation
-
-For wind assets:
-
-1. **Wind Resource Data**:  
-   Source: [Global Wind Atlas](https://globalwindatlas.info/en/)
-
-2. **Method**:
-   - Use wind speed data as input.
-   - Apply a wind power curve or generation model to convert wind speed into energy output.
-
-![image](https://github.com/user-attachments/assets/2a158614-d506-4465-ac72-544bebe11ee7)
-
-
-3. **Output**:
-   - The resulting synthetic time series represents theoretical generation based on past weather conditions.
+- **Interactive Dashboards**  
+  Explore production, market signals, and forecasts through intuitive visual dashboards.
 
 ---
 
-### C. Realism Enhancement
+## ⚙️ Energy Dashboards
 
-To simulate **real-world variability**:
+### 1. RES Power Generation – France  
+Displays daily renewable power generation in France over multiple years.  
+🔗 [View dashboard](https://hugzgj.grafana.net/public-dashboards/9d1e12a092da4f4c8cc27b8392735743)
 
-- Add **normally distributed noise** around the modeled generation values.
-- This mimics daily operational fluctuations and measurement uncertainties, making the synthetic data more suitable for backtesting.
+### 2. Forecast vs Realized Power Generation – France  
+Compares the morning forecast (generated by ResPy) with the evening forecast from RTE and the actual realized RES power generation.  
+🔗 [View dashboard](https://hugzgj.grafana.net/public-dashboards/62cfe7d7ef9540aba9d6998bb255de5a)
 
----
-
-## Summary
-
-The `PPA` class offers a foundational tool for modeling RES contracts and generation behavior. By simulating realistic generation time series, users can:
-
-- Estimate production risk (p50, p90)
-- Assess market capture potential
-- Support valuation and hedging strategies
+### 3. RES Capture Rate – France  
+Shows the monthly capture rate for renewable assets in the French power market.  
+🔗 [View dashboard](https://hugzgj.grafana.net/public-dashboards/3186096d600945fd842f67baa137a736)
 
 ---
 
-## Contact
 
-Feel free to reach out at : hugo.lambert.perso@gmail.com.
+### ☀️💨 Asset Modeling - WIND & SOLAR  
+
+🔗 [PPA Class](./Asset_Modeling/Energy_Modeling/PPA/README.md)
+
