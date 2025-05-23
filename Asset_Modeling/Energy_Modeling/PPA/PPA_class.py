@@ -137,24 +137,9 @@ class PPA():
             mylogger.logger.warning('No proxy saved. Run buildProxy first.')
         return
 
-    def computeCaptureRate(self):
-        if self.proxy.empty:
-            mylogger.logger.warning('No proxy saved. Run buildProxy first.')
+    def computeCaptureRateYearly(self):
+            df = mergePriceVolume(self.proxy)
             yearly_capture = {}
-            return yearly_capture
-        else:
-            df_prices = getDfSupabase('DAPowerPriceFR')
-            df_prices['id'] = pd.to_datetime(df_prices['id'], utc=True)
-            df_prices['id'] = df_prices['id'].dt.tz_convert('Europe/Paris')
-
-            df_prices.index = df_prices['id']
-
-            self.proxy = self.proxy[~self.proxy.index.duplicated(keep='first')]
-            df_prices = df_prices[~df_prices.index.duplicated(keep='first')]
-
-            df = pd.concat([self.proxy, df_prices], axis=1)
-            yearly_capture = {}
-
             for y in sorted(df.index.year.unique()):
                 df_temp = df[df.index.year==y]
                 avg_price = AVG_price(df_temp)
@@ -163,11 +148,28 @@ class PPA():
                                              'Capture rate': (vwavg_price / avg_price * 100)}
 
             df = pd.DataFrame.from_dict(yearly_capture)
-            df =df.transpose
+            df =df.transpose()
             return df
+    def computeCaptureRateQuarter(self):
+        df = mergePriceVolume(self.proxy)
+        yearly_capture = {}
+        for y in sorted(df.index.year.unique()):
+            for q in list(range(1, 5, 1)):
+                df_temp = df[(df.index.year==y) & (df.index.quarter==q)]
+                if df_temp.empty:
+                    pass
+                else:
+                    avg_price = AVG_price(df_temp)
+                    vwavg_price = VWA_price(df_temp)
+                    yearly_capture[f'{y}_Q{q}'] = {'average price': avg_price, 'VWA price': vwavg_price,
+                                                 'Capture rate': (vwavg_price / avg_price * 100), 'year':y, 'quarter':q}
+
+        df = pd.DataFrame.from_dict(yearly_capture)
+        df =df.transpose()
+        return df
 
     def showPowerCurve(self):
-        from Model.Power.dataProcessing import plot_hexbin_density
+        from Model.ResPowerGeneration.dataProcessing import plot_hexbin_density
         weather = getDfSupabase("WeatherFR")
         weather["id"] = pd.to_datetime(weather["id"], utc=True)
         weather["id"] = weather["id"].dt.tz_convert("Europe/Paris")
@@ -190,9 +192,31 @@ class PPA():
         plt.tight_layout()
         plt.show()
 
+def mergePriceVolume(volume_df):
+    if volume_df.empty:
+        mylogger.logger.warning('No proxy saved. Run buildProxy first.')
+        df = pd.DataFrame()
+        return df
+    else:
+        df_prices = getDfSupabase('DAPowerPriceFR')
+        df_prices['id'] = pd.to_datetime(df_prices['id'], utc=True)
+        df_prices['id'] = df_prices['id'].dt.tz_convert('Europe/Paris')
+
+        df_prices.index = df_prices['id']
+
+        df_proxy = volume_df[~volume_df.index.duplicated(keep='first')]
+        df_prices = df_prices[~df_prices.index.duplicated(keep='first')]
+
+        df = pd.concat([df_proxy, df_prices], axis=1)
+        df = df.dropna(subset=['generation'])
+        return df
 if __name__ == '__main__':
 
     ppa_wind = PPA(techno="WIND", capacity=10.0)
+    ppa_wind.buildProxy()
+    ppa_wind.buildMark()
+    df_quarter = ppa_wind.computeCaptureRateQuarter()
+    df_year = ppa_wind.computeCaptureRateYearly()
     ppa_solar = PPA(techno="SR", capacity=10.0)
 
     ppas = [ppa_solar, ppa_wind]

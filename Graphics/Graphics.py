@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
-
 import pandas as pd
+
 def DAauctionplot(df, title='Price Curve and Value Histogram', show=True):
     fig, ax1 = plt.subplots(figsize=(10, 5))
 

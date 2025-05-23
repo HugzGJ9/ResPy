@@ -5,7 +5,6 @@ import pandas as pd
 
 from API.SUPABASE.client import getDfSupabase
 
-
 def fetchRESGenerationData(country="FR"):
     if country == "FR":
         df = getDfSupabase('GenerationFR')
@@ -74,9 +73,6 @@ def fetchRESGenerationMonthlyData(country="FR"):
     res_generation_day = res_generation_day.drop(columns=['SR_capa', 'WIND_capa'])
 
     return res_generation_month, res_generation_day
-if __name__ == '__main__':
-    df = fetchRESGenerationMonthlyData("FR")
-
 
 def getGenerationModelData(country='FR'):
     weather = fetchWeatherData(country)
@@ -87,7 +83,6 @@ def getGenerationModelData(country='FR'):
     weather['WIND_capa'] = weather.index.year.map(res_capacity['WIND_capa'])
 
     return weather, res_generation
-
 
 def fetchGenerationHistoryData(country='FR'):
     weather, res_generation = getGenerationModelData(country)
@@ -102,7 +97,6 @@ def fetchGenerationHistoryData(country='FR'):
     hist['WIND'] = hist['WIND'] * (max_WIND_capa / hist['WIND_capa'])
     # hist = hist.drop(columns=['SR_capa', 'WIND_capa'])
     return hist
-
 
 def _add_time_features(df: pd.DataFrame) -> pd.DataFrame:
     df_copy = df.copy()
@@ -119,3 +113,16 @@ def _add_time_features(df: pd.DataFrame) -> pd.DataFrame:
     df_copy["hour_sin"] = np.sin(2 * np.pi * df_copy.index.hour / 24)
     df_copy["hour_cos"] = np.cos(2 * np.pi * df_copy.index.hour / 24)
     return df_copy
+
+def getDAprices():
+    da_prices = getDfSupabase('DAPowerPriceFR')
+    da_prices['id'] = pd.to_datetime(da_prices['id'], utc=True)
+    da_prices['id'] = da_prices['id'].dt.tz_convert('Europe/Paris')
+
+    da_prices.index = da_prices['id']
+    da_prices = pd.DataFrame(da_prices['price'])
+    da_prices = da_prices.resample('D').mean()
+    return da_prices
+
+if __name__ == '__main__':
+    df = fetchRESGenerationMonthlyData("FR")

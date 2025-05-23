@@ -2,7 +2,7 @@ import random
 
 import pandas as pd
 from matplotlib import pyplot as plt
-from Model.Power.dataProcessing import plot_hexbin_density
+from Model.ResPowerGeneration.dataProcessing import plot_hexbin_density
 from API.SUPABASE.client import getDfSupabase
 
 import numpy as np
