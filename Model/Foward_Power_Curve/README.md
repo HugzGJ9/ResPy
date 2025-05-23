@@ -8,8 +8,11 @@ To model a realistic **future daily Day-Ahead (DA) power price curve**, we use a
 
 ## 🔧 Methodology Overview
 
-Historical DA prices exhibit significant variation due to exceptional events:  
-![img.png](img.png)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8cbe3817-812f-4d22-a6d5-f4082374cbd8" alt="Historical DA Prices" width="600">
+</p>
+<p align="center"><em>Figure: Historical day-ahead price volatility with notable spikes due to exceptional events.</em></p>
+
 
 However, for constructing a **forward curve**, the key objective is to extract **seasonal** and **daily** patterns and apply them to the **current market context**.  
 To compare price dynamics across years meaningfully, we must first put all data on a **common scale**.
@@ -31,8 +34,10 @@ We start by **normalizing** historical daily DA prices to remove distortions cau
 
 ---
 
-**Normalized data example:**  
-![img_1.png](img_1.png)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/59240562-0a91-45b6-a047-19893bebe7fd" alt="Historical DA Prices Normalized" width="600">
+</p>
+<p align="center"><em>Figure: Historical day-ahead price Normalized.</em></p>
 
 ---
 
@@ -58,10 +63,10 @@ This yields a **representative daily shape** that captures:
 - 📆 Weekday vs. weekend effects  
 - ✅ Intra-day patterns
 
-The result is a **normalized daily profile** of a synthetic “average year”.
-
-![img_2.png](img_2.png)
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0c32a3f8-0170-4bd1-b74b-488623aca180" alt="Day-ahead price profile" width="600">
+</p>
+<p align="center"><em>Figure: Yearly day-ahead price profile.</em></p>
 ---
 
 ### Step 4: Scale with Forward Prices
@@ -89,7 +94,10 @@ The final result is a **daily forward power price curve** that:
 - Aligns with **market expectations** from forward prices  
 - Can be adapted for any horizon (**year**, **quarter**, **month**)
 
-![img_3.png](img_3.png)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b1dd80e7-d810-4673-b3d8-4381e2ff809b" alt="Forward DA Price curve" width="600">
+</p>
+<p align="center"><em>Figure: Forward DA Price curve.</em></p>
 
 ---
 
