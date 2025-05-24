@@ -47,7 +47,7 @@ Shows the monthly capture rate for renewable assets in the French power market.
 
 ### ☀️💨 Asset Modeling - WIND & SOLAR  
 
-🔗 [PPA Class](./Asset_Modeling/Energy_Modeling/PPA/README.md)
+🔗 [PPA Class](./Asset_Modeling/Energy_Modeling/PPA/README_PPAclass.md)
 
 ---
 
