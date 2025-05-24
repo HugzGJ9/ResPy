@@ -2,79 +2,70 @@
 
 ## 🎯 Purpose
 
-The `PPA` class is designed to provide a robust framework for modeling **Power Purchase Agreements (PPAs)** and **Renewable Energy Source (RES)** portfolios. It enables:
+The `PPA` class provides a robust framework for modeling **Power Purchase Agreements (PPAs)** and managing **Renewable Energy Source (RES)** portfolios. It enables:
 
-- Simulation of renewable asset generation profiles
-- Quantification of production risks (e.g., p50, p90)
-- Evaluation of market capture and revenue potential
-- Estimation of contract valuation under different pricing structures
+- Simulation of renewable generation profiles  
+- Quantification of production risks (e.g., p50, p90)  
+- Evaluation of market capture and revenue potential  
+- Valuation of contracts under different pricing structures  
 
 ---
 
 ## 🏗️ Class Structure
 
-Each `PPA` instance is defined by the following key attributes:
+Each `PPA` instance includes the following key attributes:
 
 | Attribute       | Description                                                                 |
 |----------------|-----------------------------------------------------------------------------|
-| `id`           | Unique identifier of the PPA                                                 |
-| `site_name`    | Name of the renewable site                                                  |
+| `id`           | Unique identifier for the PPA                                                |
+| `site_name`    | Name of the renewable generation site                                        |
 | `start_date`   | Contract start date                                                          |
 | `end_date`     | Contract end date                                                            |
 | `capacity`     | Installed capacity in megawatts (MW)                                         |
 | `techno`       | Technology type (`solar`, `wind`, etc.)                                      |
-| `pricing_type` | Pricing model (`fix`, `floating`, etc.)                                     |
+| `pricing_type` | Pricing model (`fixed`, `floating`, etc.)                                    |
 | `country`      | Country of operation                                                         |
-| `proxy`        | Time serie representing simulated or historical past generation                  |
-| `mark`         | Time serie representing simulated future generation                                |
-| `p50`          | Expected annual generation at 50% probability level (MWh)                    |
+| `proxy`        | Time series representing simulated or historical past generation             |
+| `mark`         | Time series representing simulated future generation                         |
+| `p50`          | Expected annual generation at a 50% probability level (MWh)                  |
 
 ---
 
 ## 🧮 Method: `buildProxy()`
 
-The `buildProxy()` method constructs a generation proxy for the renewable asset. This can be based on:
+The `buildProxy()` method constructs a **generation proxy** for the asset. It can be built from:
 
-- **Historical data**: Cleaned, time-aligned real production records
-- **Synthetic data**: Modeled generation based on weather inputs and asset characteristics
+- **Historical data**: Cleaned and time-aligned actual production records  
+- **Synthetic data**: Modeled generation using weather inputs and power curves
 
 ### 🔍 Why It Matters
 
-> The *timing* of generation is just as critical as the *volume*.
+> The *timing* of generation is just as important as the *volume*.
 
-A solar or wind park that produces during peak price hours will generate significantly more revenue than one producing at off-peak times. The proxy allows analysts to:
+A plant producing during peak price hours generates more revenue than one producing during low-price periods. The proxy enables:
 
-- Estimate expected volumes (e.g., p50)
-- Backtest value capture under real price curves
-- Compare different pricing scheme outcomes (e.g., fixed vs floating)
-
----
-
-:Warn:
-DOCUMENTATION TO BE EDITED.
-🔗 [🌞🌬️ Building Solar & Wind Power Curves Documentation](./Asset_Modeling/Energy_Modeling/PPA/README_ResPowerCurve.md)
-
-## 🎲 Realism & Noise Modeling
-
-To enhance realism in synthetic generation:
-
-- Add **normally distributed noise** to simulate measurement errors and operational variability
-- This enhances the dataset's suitability for **backtesting and valuation stress-testing**
+- Estimation of expected volumes (e.g., p50)
+- Backtesting revenue capture using historical price curves
+- Comparison of pricing scheme impacts (e.g., fixed vs floating)
 
 ---
 
-## ✅ Summary
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/13b2298c-675b-4992-aa81-77600e53d896" alt="PROXY WIND" width="400">
+  <img src="https://github.com/user-attachments/assets/b660b018-b297-484f-ba4e-a7972f37ce1f" alt="PROXY SOLAR" width="400">
+  <br/>
+  <em>Figure: Examples of WIND and SOLAR generation proxies</em>
+</p>
 
-The `PPA` class is a foundational module for simulating, analyzing, and valuing renewable energy contracts. It enables:
+To construct a proxy, a power curve must first be defined for the asset. The full methodology is documented here:
 
-- 📊 Production risk analysis (e.g., p50, p90)
-- 💰 Revenue and market capture forecasting
-- ⚖️ Comparison of PPA pricing structures
-- 🔍 Contract valuation under realistic scenarios
+🔗 [🌞🌬️ Building Solar & Wind Power Curves](./Asset_Modeling/Energy_Modeling/PPA/README_ResPowerCurve.md)
+
+Once the power curve is established, it is applied to the **hourly weather history** of the site to simulate a historical generation profile — referred to as the **proxy**.
 
 ---
 
-## 📫 Contact
+## 👤 Author
 
-For further information or collaboration inquiries:  
-📧 **hugo.lambert.perso@gmail.com**
+**Hugo Lambert** – Energy Forecasting & Market Modeling  
+Feel free to reach out hugo.lambert.perso@gmail.com
