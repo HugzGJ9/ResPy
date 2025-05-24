@@ -114,7 +114,7 @@ def _add_time_features(df: pd.DataFrame) -> pd.DataFrame:
     df_copy["hour_cos"] = np.cos(2 * np.pi * df_copy.index.hour / 24)
     return df_copy
 
-def getDAprices():
+def getDApricesDaily():
     da_prices = getDfSupabase('DAPowerPriceFR')
     da_prices['id'] = pd.to_datetime(da_prices['id'], utc=True)
     da_prices['id'] = da_prices['id'].dt.tz_convert('Europe/Paris')
@@ -122,6 +122,15 @@ def getDAprices():
     da_prices.index = da_prices['id']
     da_prices = pd.DataFrame(da_prices['price'])
     da_prices = da_prices.resample('D').mean()
+    return da_prices
+
+def getDApricesHourly():
+    da_prices = getDfSupabase('DAPowerPriceFR')
+    da_prices['id'] = pd.to_datetime(da_prices['id'], utc=True)
+    da_prices['id'] = da_prices['id'].dt.tz_convert('Europe/Paris')
+
+    da_prices.index = da_prices['id']
+    da_prices = pd.DataFrame(da_prices['price'])
     return da_prices
 
 if __name__ == '__main__':

@@ -1,7 +1,6 @@
 import pandas as pd
 from matplotlib import pyplot as plt
-
-from Asset_Modeling.Energy_Modeling.data.data import getDAprices
+from Asset_Modeling.Energy_Modeling.data.data import getDApricesDaily
 
 def simulate_seasonal_profile(da_prices, start_date="2025-01-01", end_date="2025-12-31", rolling_window=None):
     df = da_prices.copy().dropna().sort_index()
@@ -14,7 +13,6 @@ def simulate_seasonal_profile(da_prices, start_date="2025-01-01", end_date="2025
 
     seasonal_avg = df.groupby(['month', 'week_in_month', 'weekday'])['normalized'].mean()
 
-    # Create future daily index
     index = pd.date_range(start_date, end_date, freq="D")
     curve = pd.DataFrame(index=index)
     curve['month'] = curve.index.month

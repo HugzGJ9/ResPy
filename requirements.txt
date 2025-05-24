@@ -96,6 +96,7 @@ supabase==2.6.0
 supafunc==0.5.1
 ta==0.11.0
 tenacity==9.0.0
+tensorflow==2.14.0
 tensorflow-io-gcs-filesystem==0.31.0
 threadpoolctl==3.5.0
 tqdm==4.66.1
@@ -106,6 +107,7 @@ ujson==5.10.0
 urllib3==2.2.3
 websockets==12.0
 Werkzeug==3.0.6
+xgboost==2.0.3
 yarl==1.15.2
 yfinance==0.2.54
 zipp==3.20.2
