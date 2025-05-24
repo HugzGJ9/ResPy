@@ -55,10 +55,22 @@ Shows the monthly capture rate for renewable assets in the French power market.
 
 🔗 [FORECAST Documentation](./Model/ResPowerGeneration/README.md)
 
+---
+
 ### 🔌📈 Future Day-Ahead Power Curve
 
 🔗 [Future Day-Ahead Power Curve Documentation](./Model/FowardPowerCurve/README_DailyPowerCurve.md)
 
+---
+
 ### 🔌📈 Future Day-Ahead Power Curve (houly)
 
 🔗 [Forward Power Curve Houly Documentation](./Model/FowardPowerCurve/README_HourlyPowerCurve.md)
+
+---
+
+## 👤 Author
+
+**Hugo Lambert** – Energy Forecasting & Market Modeling  
+Feel free to reach out hugo.lambert.perso@gmail.com
+
