@@ -50,44 +50,9 @@ A solar or wind park that produces during peak price hours will generate signifi
 
 ---
 
-## 🌞 Synthetic Generation – Solar
-
-### 🗺️ Location
-
-- **Site Example**: Montluçon, France  
-- **Source**: [Global Solar Atlas](https://globalsolaratlas.info/detail?c=46.34003,2.607396,11&m=site&s=46.34003,2.607396)
-
-<img src="https://github.com/user-attachments/assets/7e19ce3f-4250-46fd-91cd-8afba313d7ed" width="500"/>
-
-### ⚙️ Methodology
-
-1. **Collect** hourly/monthly average load factors from the site
-2. **Merge** with corresponding solar radiation data
-3. **Visualize**: Scatter plot of radiation vs load factor
-
-   <img src="https://github.com/user-attachments/assets/1b1ea9d5-82b8-476a-b7d1-82e969a5760e" width="500"/>
-
-5. **Model**: Fit a **polynomial regression** (e.g., degree 2 or 3) to simulate output from radiation
-
-   <img src="https://github.com/user-attachments/assets/05dac703-13a2-4eb1-9478-15c7580ca299" width="500"/>
-
----
-
-## 🌬️ Synthetic Generation – Wind
-
-### 🌍 Resource Data
-
-- **Source**: [Global Wind Atlas](https://globalwindatlas.info/en/)
-
-### ⚙️ Methodology
-
-1. Input wind speed time series (e.g., hourly from weather reanalysis)
-2. Apply wind turbine power curve (custom or standardized)
-3. Generate synthetic output
-
-   <img src="https://github.com/user-attachments/assets/2a158614-d506-4465-ac72-544bebe11ee7" width="500"/>
-
----
+:Warn:
+DOCUMENTATION TO BE EDITED.
+🔗 [🌞🌬️ Building Solar & Wind Power Curves Documentation](./Asset_Modeling/Energy_Modeling/PPA/README_ResPowerCurve.md)
 
 ## 🎲 Realism & Noise Modeling
 
