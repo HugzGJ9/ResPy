@@ -59,7 +59,7 @@ A plant producing during peak price hours generates more revenue than one produc
 
 To construct a proxy, a power curve must first be defined for the asset. The full methodology is documented here:
 
-🔗 [🌞🌬️ Building Solar & Wind Power Curves](./Asset_Modeling/Energy_Modeling/PPA/README_ResPowerCurve.md)
+🔗 [🌞🌬️ Building Solar & Wind Power Curves](./README_ResPowerCurve.md)
 
 Once the power curve is established, it is applied to the **hourly weather history** of the site to simulate a historical generation profile — referred to as the **proxy**.
 
