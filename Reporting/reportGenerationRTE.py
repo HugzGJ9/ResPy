@@ -1,7 +1,7 @@
 from API.RTE.data import getAPIdata
 from API.SUPABASE.save import saveDailyGenerationTS
-from Asset_Modeling.Energy_Modeling.ShortTerm_Power.buildGenerationReport import buildMonthlyTable, buildGenerationForecastEmail, fetchGenerationReport
-from Asset_Modeling.Energy_Modeling.data.data import fetchRESGenerationMonthlyData
+from Reporting.buildGenerationReport import buildMonthlyTable, buildGenerationForecastEmail, fetchGenerationReport
+from API.SUPABASE.data import fetchRESGenerationMonthlyData
 
 generation_forecast = getAPIdata(APIname="Generation Forecast")
 generation_forecast = generation_forecast.rename(columns={'SOLAR': 'SR'})

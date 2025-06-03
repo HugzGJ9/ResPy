@@ -4,7 +4,7 @@ import joblib
 import pandas as pd
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-from Asset_Modeling.Energy_Modeling.data.data import fetchGenerationHistoryData
+from API.SUPABASE.data import fetchRESGenerationHistoryData
 from Logger.Logger import mylogger
 from API.OPENMETEO.Config_class import cfg
 from Model.ResPowerGeneration.dataProcessing import dataRESGenerationCleaning
@@ -13,7 +13,7 @@ from xgboost import XGBRegressor
 from lightgbm import LGBMRegressor
 from scikeras.wrappers import KerasRegressor
 
-from Model.ResPowerGeneration.nn_architectures import _build_ffnn, _build_ffnn2
+from Model.ResPowerGeneration.nn_architectures import _build_ffnn
 from Model.ResPowerGeneration.targets import TARGETS
 
 def _build_pipe(feats: List[str], model="LGBMRegressor") -> Pipeline:
@@ -125,7 +125,7 @@ def getModelPipe(model_name="model_RES_generation_DNNR_cleaned"):
     return pipes
 
 if __name__ == "__main__":
-    history = fetchGenerationHistoryData('FR')
+    history = fetchRESGenerationHistoryData('FR')
     # sr_features, wind_features = visualize_correlations(history, top_n=15)
     # TARGETS: Dict[str, List[str]] = {
     #     "WIND": wind_features,

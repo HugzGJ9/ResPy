@@ -1,6 +1,6 @@
 from API.SUPABASE.save import saveDailyGenerationTS
-from Asset_Modeling.Energy_Modeling.ShortTerm_Power.buildGenerationReport import buildMonthlyTable, buildGenerationForecastEmail, fetchGenerationReport
-from Asset_Modeling.Energy_Modeling.data.data import fetchRESGenerationMonthlyData
+from Reporting.buildGenerationReport import buildMonthlyTable, buildGenerationForecastEmail, fetchGenerationReport
+from API.SUPABASE.data import fetchRESGenerationMonthlyData
 from Model.ResPowerGeneration.RESPowerGeneration_forecast import getGenerationForecastReport
 
 generation_forecast = getGenerationForecastReport(model_name="model_RES_generation_LGBMR_cleaned_pt")

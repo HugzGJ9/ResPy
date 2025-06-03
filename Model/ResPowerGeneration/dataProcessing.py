@@ -2,7 +2,7 @@ from __future__ import annotations
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from Logger.Logger import mylogger
-from Asset_Modeling.Energy_Modeling.data.data import fetchGenerationHistoryData
+from API.SUPABASE.data import fetchRESGenerationHistoryData
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 import numpy as np
@@ -525,7 +525,7 @@ def detect_multivariate_outliers_isoforest(df, contamination=0.05):
 
 
 if __name__ == '__main__':
-    history = fetchGenerationHistoryData('FR')
+    history = fetchRESGenerationHistoryData('FR')
     # sr_features, wind_features = visualize_correlations(history, top_n=15)
     outlier_indices = set()
 

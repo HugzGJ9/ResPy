@@ -1,7 +1,7 @@
 import pandas as pd
 from API.RTE.data import getAPIdata
-from Asset_Modeling.Energy_Modeling.ShortTerm_Power.buildGenerationReport import buildAuctionDAEmail, setImgEmail
-from Asset_Modeling.Energy_Modeling.ShortTerm_Power.templates.generation import style_html_table
+from Reporting.buildGenerationReport import buildAuctionDAEmail, setImgEmail
+from Reporting.templates.generation import style_html_table
 from Graphics.Graphics import DAauctionplot, ForecastGenplot
 
 

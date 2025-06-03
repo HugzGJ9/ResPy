@@ -23,6 +23,16 @@ def fetchRESGenerationData(country="FR"):
     # df = df[df.index.year < 2025]
     return df
 
+def fetchGenerationData(country="FR"):
+    if country == "FR":
+        df = getDfSupabase('GenerationFR')
+    else:
+        df = getDfSupabase('GenerationFR')
+    df['id'] = pd.to_datetime(df['id'], utc=True)
+    df.index = df['id']
+    df.index.name = 'time'
+    return df
+
 def fetchRESCapacityData(country="FR"):
     if country == "FR":
         df = getDfSupabase('InstalledCapacityFR')
@@ -35,7 +45,6 @@ def fetchRESCapacityData(country="FR"):
     df['WIND'] = df['WOF'] + df['WON']
     df = df[['Solar', 'WIND']]
     df = df.rename(columns={'Solar': 'SR'})
-
     return df
 
 def fetchWeatherData(country="FR"):
@@ -74,7 +83,7 @@ def fetchRESGenerationMonthlyData(country="FR"):
 
     return res_generation_month, res_generation_day
 
-def getGenerationModelData(country='FR'):
+def getRESGenerationData(country='FR'):
     weather = fetchWeatherData(country)
     res_generation = fetchRESGenerationData(country)
     res_capacity = fetchRESCapacityData(country)
@@ -84,8 +93,8 @@ def getGenerationModelData(country='FR'):
 
     return weather, res_generation
 
-def fetchGenerationHistoryData(country='FR'):
-    weather, res_generation = getGenerationModelData(country)
+def fetchRESGenerationHistoryData(country='FR'):
+    weather, res_generation = getRESGenerationData(country)
     weather = weather[~weather.index.duplicated(keep='first')]
     res_generation = res_generation[~res_generation.index.duplicated(keep='first')]
 

@@ -1,6 +1,5 @@
 import pandas as pd
-from matplotlib import pyplot as plt
-from Asset_Modeling.Energy_Modeling.data.data import getDApricesDaily
+
 
 def simulate_seasonal_profile(da_prices, start_date="2025-01-01", end_date="2025-12-31", rolling_window=None):
     df = da_prices.copy().dropna().sort_index()
@@ -21,12 +20,9 @@ def simulate_seasonal_profile(da_prices, start_date="2025-01-01", end_date="2025
 
     # Use multi-index join and preserve datetime index
     curve_key = curve.set_index(['month', 'week_in_month', 'weekday'])
-    curve['normalized_price'] = seasonal_avg.reindex(curve_key.index).values
+    curve['normalized'] = seasonal_avg.reindex(curve_key.index).values
 
-    if rolling_window:
-        curve['normalized_price'] = curve['normalized_price'].rolling(rolling_window, center=True, min_periods=1).mean()
-
-    return curve[['normalized_price']]
+    return curve[['normalized']]
 
 
 def getCurve(profile_normalized, market_prices:dict):

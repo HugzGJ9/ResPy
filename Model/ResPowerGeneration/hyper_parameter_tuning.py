@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.compose import ColumnTransformer
 
 from API.OPENMETEO.Config_class import cfg
-from Asset_Modeling.Energy_Modeling.data.data import fetchGenerationHistoryData
+from API.SUPABASE.data import fetchRESGenerationHistoryData
 from Model.ResPowerGeneration.targets import TARGETS
 from Model.ResPowerGeneration.dataProcessing import dataRESGenerationCleaning
 
@@ -55,7 +55,7 @@ def run_optimization(df: pd.DataFrame, techno: str, n_trials: int = 50):
     return study.best_params
 
 if __name__ == "__main__":
-    df = fetchGenerationHistoryData("FR")
+    df = fetchRESGenerationHistoryData("FR")
 
     # Outlier cleaning
     outlier_indices = set()

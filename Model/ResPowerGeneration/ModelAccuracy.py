@@ -6,7 +6,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, mean_absolu
 
 from Logger.Logger import mylogger
 from Model.ResPowerGeneration.RESPowerGeneration_model import getModelPipe
-from Asset_Modeling.Energy_Modeling.data.data import fetchGenerationHistoryData
+from API.SUPABASE.data import fetchRESGenerationHistoryData
 
 
 def evaluate_model_accuracy(hist, pipes, country="FR", holdout_days: int = 7, isShow=False):
@@ -90,7 +90,7 @@ def evaluate_model_accuracy(hist, pipes, country="FR", holdout_days: int = 7, is
     return metrics, holdout
 
 if __name__ == '__main__':
-    history = fetchGenerationHistoryData('FR')
+    history = fetchRESGenerationHistoryData('FR')
     pipes = {
         # "model1": getModelPipe(model_name="model_RES_generation_LGBMR_cleaned_fs"),
         # "model1_ns": getModelPipe(model_name="model_RES_generation_LGBMR_cleaned_fs_ns"),

@@ -1,6 +1,6 @@
 import pandas as pd
-from API.SUPABASE.client import getDfSupabase, insertDfSupabase, getAccessSupabase
-from Asset_Modeling.Energy_Modeling.data.data import fetchRESGenerationData
+from API.SUPABASE.client import getDfSupabase, getAccessSupabase
+from API.SUPABASE.data import fetchRESGenerationData
 from Logger.Logger import mylogger
 
 def CaptureRate_tec(techno='WIND', year=2022):

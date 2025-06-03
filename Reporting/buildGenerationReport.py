@@ -2,7 +2,7 @@ from email.utils import make_msgid
 import pandas as pd
 from io import BytesIO
 from API.GMAIL.auto_email_template import setAutoemail
-from Asset_Modeling.Energy_Modeling.ShortTerm_Power.templates.generation import style_html_table
+from Reporting.templates.generation import style_html_table
 from Graphics.Graphics import ForecastGenplot
 
 

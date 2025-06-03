@@ -43,7 +43,7 @@ def simulate_solar_generation(radiation, capacity):
 
 def simulate_wind_generation(wind_speed, capacity):
     from Asset_Modeling.Energy_Modeling.PPA.Profile_modelisation import WIND_LoadFactor_FR, sigmoid
-    wind_speed = wind_speed / 3.6 #convert km/hour to m/s
+    wind_speed = wind_speed / 3.6
     is_scalar = np.isscalar(wind_speed)
     wind_speed = np.asarray(wind_speed)
     params = WIND_LoadFactor_FR()
