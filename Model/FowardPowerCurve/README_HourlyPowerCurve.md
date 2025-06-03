@@ -44,15 +44,66 @@ This removes level bias and highlights the relative shape of price movements.
 
 ---
 
-### ✅ Step 2: Compute Average Hourly Shape per Month
+### 🕰️ OLD VERSION — Step 2: Compute Average Hourly Shape per Month
 
-We then compute the **average normalized price for each hour of the day**, grouped by month.  
+> ⚠️ **Note**: This was the original method for generating monthly profiles. It simply averages all normalized hourly values per month, without selecting representative days.
+
+We compute the **average normalized price for each hour of the day**, grouped by month.  
 This produces a **monthly 24-hour profile**, which reflects the average intraday behavior for each calendar month.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/1f6ec805-5181-4486-bc57-6fe08d5ddf41" alt="Monthly Normalized Hourly Profiles" width="600">
 </p>
+<p align="center"><em>Figure: Normalized hourly profiles by month (old method).</em></p>
+
+---
+
+### ✨ NEW VERSION - Step 2: Quantile-Based Shape Extraction
+
+> ✅ **Improved approach**: Instead of averaging all days, this method selects the **most representative daily profiles** based on a quantile filter and smooths the result by averaging the top 5 closest days per `(month, hour)`.
+
+### ⚙️ Core Idea
+
+Rather than taking a simple average over all days, the function:
+
+- Normalizes each day's hourly prices to remove absolute price level effects  
+- Emphasizes low-price periods (dips in the curve) using an asymmetric transformation:
+
+```python
+df['normalized_modified'] = np.where(df['normalized'] < 1, 2 - df['normalized'], df['normalized'])
+```
+
+- Selects the top 5 days per `(month, hour)` that best match a reference quantile shape  
+- Averages the normalized shapes of these selected days to produce a smooth, robust intraday profile
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/168e4eaf-2152-42c6-a5f5-2d4a6ef818ab" alt="Monthly Normalized Hourly Profiles" width="600">
+</p>
+
 <p align="center"><em>Figure: Normalized hourly profiles by month.</em></p>
+
+### 🧪 Quantile Parameter & Volatility Metric
+
+This new method improves robustness by using the 50th percentile (median) by default instead of the mean, which tends to be distorted by extreme spikes.
+
+It also introduces the ability to **backtest different quantile values**, offering a new parameter that can influence the valuation of shaped assets such as wind and solar plants.
+
+This parameter defines the concept of **intraday shape volatility** — a metric that captures the sharpness and variability of hourly price curves.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4432107c-46a0-4389-a76b-415d462a0275" alt="Hourly Profiles vs Shape ID Volatility" width="600">
+</p>
+
+<p align="center"><em>Figure: Hourly Profiles vs Shape ID Volatility.</em></p>
+
+### 📊 Use Cases & Benefits
+
+- Captures more **representative daily patterns** by avoiding distortion from outliers  
+- Enables **quantile tuning** to adjust shape sensitivity and asset pricing dynamics  
+- Supports robust modeling for:
+  - Power Purchase Agreements (PPAs)  
+  - Renewable asset optimization  
+  - Shape hedging and structured product pricing
 
 ---
 
