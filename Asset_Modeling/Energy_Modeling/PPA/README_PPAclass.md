@@ -65,6 +65,34 @@ Once the power curve is established, it is applied to the **hourly weather histo
 
 ---
 
+## 📈 Method: `buildMark()`
+
+The `buildMark()` method constructs a **generation mark** for the asset. It is derived from the proxy time series and corresponds to the average volume per month and per hour. This provides the expected generation profile of the asset.
+
+This time series is a cornerstone for PPA management, as it establishes the `P50` — the expected volume — and, when combined with the forward price curve, it enables **Mark-to-Market** valuation by projecting the expected cash flows of the asset.
+
+🔗 [📈⚡ Future Day-Ahead Power Curve Documentation](https://github.com/HugzGJ9/ResPy/blob/main/Model/FowardPowerCurve/README_DailyPowerCurve.md)  
+🔗 [📈⚡ Forward Power Curve Hourly Documentation](https://github.com/HugzGJ9/ResPy/blob/main/Model/FowardPowerCurve/README_HourlyPowerCurve.md)
+
+---
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/58f5d172-bd91-4712-892c-284fe9dd84fa" alt="Mark - WIND 10.0MW" width="400">
+  <img src="https://github.com/user-attachments/assets/bfce4f02-7d49-45e7-86b3-19a6906c1c7a" alt="Mark Daily - WIND 10.0MW" width="400">
+  <img src="https://github.com/user-attachments/assets/989c6124-9529-43c0-a596-2f42ce68e65b" alt="Mark ID - WIND 10.0MW" width="400">
+  <br/>
+  <em>Figure: MARK WIND</em>
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4b1ca8e0-b17b-43e4-aefe-87920b8b4563" alt="Mark - Solar 10.0MW" width="400">
+  <img src="https://github.com/user-attachments/assets/6050ed12-ef8c-4ff3-b9f9-00aecc35aed5" alt="Mark Daily - Solar 10.0MW" width="400">
+  <img src="https://github.com/user-attachments/assets/3d11c0bd-44e6-48f5-9922-cb8d56764f81" alt="Mark ID - Solar 10.0MW" width="400">
+  <br/>
+  <em>Figure: MARK SOLAR</em>
+</p>
+
+---
 ## 👤 Author
 
 **Hugo Lambert** – Energy Forecasting & Market Modeling  
