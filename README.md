@@ -65,7 +65,7 @@ Shows the monthly capture rate for renewable assets in the French power market.
 
 ### 🔌📈 Future Day-Ahead Power Curve (houly)
 
-🔗 [Forward Power Curve Houly Documentation](./Model/FowardPowerCurve/README_HourlyPowerCurve.md)
+🔗 [Forward Power Curve Hourly Documentation](./Model/FowardPowerCurve/README_HourlyPowerCurve.md)
 
 ---
 
