@@ -66,19 +66,17 @@ def SOLAR_LoadFactor_FR(isShow=False):
     df = weather.groupby([weather.index.month, weather.index.hour]).mean()
     df.index.set_names(['month', 'hour'], inplace=True)
     f_reset = df.reset_index()
-    # Step 3: Melt SR_LoadFactor_FR2 to long format
+
     load_factor_long = SR_LoadFactor_FR2.drop(columns="Hour").reset_index().melt(
         id_vars='index',
         var_name='month',
         value_name='Load_Factor'
     )
     load_factor_long.rename(columns={'index': 'hour'}, inplace=True)
-    # Step 4: Ensure types match
     load_factor_long['month'] = load_factor_long['month'].astype(int)
     load_factor_long['hour'] = load_factor_long['hour'].astype(int)
-    # Step 5: Merge
+
     merged = pd.merge(f_reset, load_factor_long, how='left', on=['month', 'hour'])
-    # Step 6: (Optional) Set back to MultiIndex
     merged.set_index(['month', 'hour'], inplace=True)
     params = np.polyfit(merged['Solar_Radiation'], merged['Load_Factor'], 3)
     if isShow:
@@ -87,7 +85,6 @@ def SOLAR_LoadFactor_FR(isShow=False):
         plt.plot(merged['Solar_Radiation'], y_hat, "r--", lw=1)
         plt.show()
     return params
-# Create final dataframe
 SR_LoadFactor_FR = pd.DataFrame({
     "Hour": [f"{h:02}:00" for h in range(24)],
     "Summer": SR_LF_Montlucon["Summer"],

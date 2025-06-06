@@ -66,7 +66,6 @@ def buildSyntheticGenerationWIND(df: pd.DataFrame,
                                capacity: float = 10.0) -> pd.DataFrame:
     out = df.copy()
     out['generation'] = 0.0
-
     generation = simulate_wind_generation(out['Wind_Speed_100m'],
                                            capacity=capacity,
                                            )
