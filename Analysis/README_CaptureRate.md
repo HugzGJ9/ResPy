@@ -1,44 +1,61 @@
 # 📊 Capture Rate Evolution – French Market
 
-![Yearly capture rate evolution – France](image.png)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/868c4f5d-8ad9-4b51-9259-2083302689f2" alt="Yearly Capture Rate" width="800">
+</p>
+<p align="center"><em>Figure: Yearly Capture Rate Evolution – France</em></p>
 
-Until 2020, wind and solar assets in France had never shown capture rates below 93.6% and 92.7%, respectively. During that period, wind capacity increased by 60%, from 10.3 GW to 16.5 GW, and solar capacity grew by 54%, from 6.1 GW to 9.4 GW.
+Until 2020, wind and solar assets in France consistently achieved capture rates above 93.6% and 92.7%, respectively. During this period, wind capacity grew by 60%, from 10.3 GW to 16.5 GW, while solar capacity expanded by 54%, rising from 6.1 GW to 9.4 GW.
 
-Since 2020, renewable energy capacity has continued to grow, reaching 26 GW for wind and 21 GW for solar today, corresponding to additional growth of 58% and 123%, respectively. This sharp increase in RES capacity has clearly impacted capture rates, which have dropped significantly: down to 68% for solar in 2024 and below 90% for wind.
+Since 2020, renewable capacity has continued to rise, reaching 26 GW for wind and 21 GW for solar, representing additional growth of 58% and 123%, respectively. This surge has had a significant impact on capture rates, which have declined sharply: solar fell to 68% in 2024, and wind dropped below 90%.
 
-![Monthly capture rate (France) – solar and wind](MonthlyCR.png)
-
-![Monthly capture rate (France) – wind detailed](MonthlyCR2.png)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3060ffe0-ab56-469b-83e7-bc26a6ce073e" alt="Monthly Capture Rate 1" width="800">
+  <br><br>
+  <img src="https://github.com/user-attachments/assets/f27aea44-bcb0-4833-ac36-b98321ba2248" alt="Monthly Capture Rate 2" width="800">
+</p>
+<p align="center"><em>Figure: Monthly Capture Rate Evolution – France</em></p>
 
 ---
 
 # 💰 RES Market Value
 
-![RES market value decline with penetration](RESMV.png)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/77236af0-96fd-45f0-a2f0-27e4adcef7e1" alt="RES Market Value" width="800">
+</p>
+<p align="center"><em>Figure: RES Market Value over Generation</em></p>
 
-An interesting graph illustrates how RES penetration affects its market value and highlights the **cannibalization phenomenon**. Up to around 5 GW of generation, both wind and solar maintain a value close to the linear base generation. Beyond that point, wind value begins to decline gradually, whereas solar value drops much more sharply beyond 10 GW of generation.
+The chart above highlights the impact of RES penetration on market value and illustrates the **cannibalization effect**. Up to ~5 GW of generation, both wind and solar maintain a value close to the linear base generation. Beyond that threshold, wind value declines gradually, while solar value drops steeply past 10 GW.
 
-There are two key explanations for this difference in France:
+Two main factors explain this divergence in France:
 
-- Wind tends to be stronger in winter, when electricity demand and market prices are higher.
-- Wind generation is more geographically dispersed than solar, allowing surplus wind power to be exported more easily and at better market prices.
+- **Seasonality**: Wind generation peaks in winter when demand and prices are higher.
+- **Geographic dispersion**: Wind assets are more distributed across regions, facilitating exports at favorable prices, unlike solar.
 
-![RES value decline vs installed capacity](RES%20VM2.png)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8c7b2a81-dd18-452d-9814-7e3511bfbd08" alt="RES Market Value %" width="800">
+</p>
+<p align="center"><em>Figure: RES Market Value (as % of Base) vs. Generation</em></p>
 
 ---
 
-# ⏱️ ID Price Shape
+# ⏱️ Intraday Price Shape
 
-The normalization process consists in dividing each data point by the corresponding yearly average across all hours, so that each curve is centered around a mean value of 1. This approach emphasizes the relative shape of the curves while removing the effect of absolute price levels, which were exceptionally high during the peak of the energy crisis in 2022.
+To remove the impact of absolute price levels (e.g. the 2022 crisis), we normalize hourly prices by dividing each data point by the corresponding annual average. This centers each curve around 1.0, allowing a clearer comparison of shape over time.
 
-![Normalized hourly price curves – Duck curve effect](Duck%20Curve.png)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/62591592-20c4-4aea-a523-19db99cb9a01" alt="Normalized Hourly Prices" width="800">
+</p>
+<p align="center"><em>Figure: Normalized Hourly Average Prices</em></p>
 
-Another graph illustrates the effect of renewable power penetration on hourly prices. By observing the normalized hourly average prices per year, the **duck curve effect** becomes evident. 
+The chart reveals the **duck curve effect**, a distortion of hourly price profiles driven by solar generation. As solar ramps up during midday, prices dip, then rise again in the evening as solar fades and demand peaks. This creates the classic “duck” shape: a low belly (noon) and high head/tail (morning/evening).
 
-The **duck curve** refers to the distortion of the intraday electricity price or demand curve caused by high solar power generation during midday hours. As solar production ramps up, net demand (or market prices) drops significantly around noon, leading to a "dip" in the curve. In contrast, demand rises again in the early morning and evening when solar output is low, creating higher prices during these hours.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e011703c-0b0e-41cb-9932-1d8861623138" alt="Duck Value" width="800">
+</p>
+<p align="center"><em>Figure: Duck Value Evolution Over Time</em></p>
 
-This pattern creates a curve that resembles the shape of a duck: a **dip in the middle** (belly) and **higher levels on both ends** (head and tail). The duck curve effect becomes more pronounced as solar penetration increases, highlighting the challenges of balancing supply and demand in systems with high shares of variable renewable energy.
+To quantify this effect, we define the **DuckValue** metric:  
+> DuckValue = AVG Morning & Evening Peak – Midday Dip
 
-![DuckValue – Difference between peak and midday normalized prices](DuckValue.png)
-
-To evaluate the duck curve effect on prices, we define a simple metric called **DuckValue**, which measures the difference between average peak and midday dip normalized prices. The graph shows that this value remained relatively stable between 0.24 and 0.36 until 2022. However, starting in 2023, it surged to 0.50 and then to 0.77 in 2024, representing increases of 39% and 139%, respectively. This sharp rise reflects the growing impact of solar penetration on intraday price patterns.
+This indicator was stable between 0.24 and 0.36 until 2022, then jumped to **0.50 in 2023** and **0.77 in 2024**, representing increases of 39% and 139%, respectively. These sharp changes reflect the growing impact of solar on intraday market dynamics.
