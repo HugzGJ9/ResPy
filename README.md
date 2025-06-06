@@ -69,6 +69,12 @@ Shows the monthly capture rate for renewable assets in the French power market.
 
 ---
 
+### 📊📊 Capture Rate Evolution - French market
+
+🔗 [Capture Rate Evolution Analysis](./Analysis/README_CaptureRate.md)
+
+---
+
 ## 👤 Author
 
 **Hugo Lambert** – Energy Forecasting & Market Modeling  
