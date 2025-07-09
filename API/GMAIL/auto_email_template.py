@@ -2,13 +2,16 @@ import mimetypes
 import ssl
 from email.message import EmailMessage
 import smtplib
-from Keypass.key_pass import KEYPASS
+import os
+from env_loader import load_env_from_project_root
+load_env_from_project_root()
+EMAIL_PASS = os.getenv("EMAIL_PASS")
 
 def setAutoemail(emails: list, subject, body_html, image_buffers=None, image_cids=None, attachment=False):
     import mimetypes
     email_sender = emails[0]
     email_receiver = emails[1]
-    email_password = KEYPASS[email_sender]
+    email_password = EMAIL_PASS
 
     em = EmailMessage()
     em['From'] = email_sender

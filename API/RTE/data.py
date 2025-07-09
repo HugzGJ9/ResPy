@@ -1,14 +1,17 @@
-import datetime
-
-import requests
-
 from API.RTE.OAuth2 import getToken
-from Keypass.key_pass import API_RTE
 import pandas as pd
 from Logger.Logger import mylogger
 from datetime import datetime, timedelta
 import pytz
 import requests
+import json
+import os
+
+from env_loader import load_env_from_project_root
+load_env_from_project_root()
+API_RTE = json.loads(os.getenv("API_RTE_JSON"))
+
+
 timezone = pytz.timezone('Europe/Paris')
 now = datetime.now(timezone)
 today = now.replace(hour=0, minute=0, second=0, microsecond=0)

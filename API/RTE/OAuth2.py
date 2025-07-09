@@ -1,7 +1,11 @@
 import requests
 from Logger.Logger import mylogger
-from Keypass.key_pass import API_RTE
+import json
+import os
 
+from env_loader import load_env_from_project_root
+load_env_from_project_root()
+API_RTE = json.loads(os.getenv("API_RTE_JSON"))
 def getToken(APIname:str, logger=False):
     token_url = "https://digital.iservices.rte-france.com/token/oauth/"
     headers = {

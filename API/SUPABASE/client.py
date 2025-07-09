@@ -1,12 +1,13 @@
 import numpy as np
 from supabase import create_client
 import pandas as pd
-
-from API.SUPABASE.prices import CALPRICES
-from Keypass.key_pass import API_SUPABASE
-from API.ENTSOE.data import getGenerationData
 from Logger.Logger import mylogger
 
+import os
+import json
+from env_loader import load_env_from_project_root
+load_env_from_project_root()
+API_SUPABASE = json.loads(os.getenv("API_SUPABASE_JSON"))
 def getAccessSupabase(App: str):
     if App in API_SUPABASE.keys():
         SUPABASE_URL = API_SUPABASE[App]['token_url']
@@ -15,7 +16,7 @@ def getAccessSupabase(App: str):
         mylogger.logger.error(f"APP : {App} not found in SUPABASE Database.")
         return
     supabase = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
-    return  supabase
+    return supabase
 
 def getDfSupabase(db_name):
     supabase = getAccessSupabase(db_name)
@@ -74,6 +75,7 @@ def updateDfSupabase(df, db_name):
     return
 
 if __name__ == '__main__':
+    print('test')
     # for i in range(10*6):
     #     start = pd.Timestamp('20200301', tz='Europe/Paris') - pd.DateOffset(months=i*2)
     #     end = pd.Timestamp('20200601', tz='Europe/Paris') - pd.DateOffset(months=i*2)
@@ -92,5 +94,5 @@ if __name__ == '__main__':
     # now = pd.Timestamp.now(tz='Europe/Paris')
     # yesterday = now.normalize() - pd.Timedelta(days=1)
     # df = getGenerationData(country='FR', start=yesterday, end=now)
-    df = CALPRICES
-    insertDfSupabase(df, 'CALPowerPriceFR')
+    # df = CALPRICES
+    # insertDfSupabase(df, 'CALPowerPriceFR')
