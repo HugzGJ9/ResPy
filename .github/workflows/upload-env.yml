@@ -1,17 +1,32 @@
 name: Upload .env
 
 on:
-  workflow_dispatch:  # allows manual trigger
+  workflow_dispatch:  # allows you to run it manually from GitHub
 
 jobs:
   upload:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Upload .env file
+      - name: Show working directory (for debug)
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Files:"
+          ls -al
+
+      - name: Check if .env file exists
+        run: |
+          if [ ! -f .env ]; then
+            echo "ERROR: .env file not found at the repo root!"
+            exit 1
+          fi
+
+      - name: Upload .env file as artifact
         uses: actions/upload-artifact@v4
         with:
           name: envfile
-          path: ResPy/.env
+          path: .env
