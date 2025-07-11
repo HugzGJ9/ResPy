@@ -1,7 +1,7 @@
 name: Upload .env
 
 on:
-  workflow_dispatch:  # This allows manual run from GitHub
+  workflow_dispatch:
 
 jobs:
   upload:
@@ -11,21 +11,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Show contents of root folder (debug step)
+      - name: show directory contents
         run: |
-          echo "Files in current directory:"
+          echo "Current directory: $(pwd)"
+          echo "--- Root files ---"
           ls -al
+          echo "--- All files recursively ---"
+          find . -type f
 
-      - name: Check if .env exists
+      - name: Check .env exists
         run: |
           if [ ! -f .env ]; then
-            echo "❌ ERROR: .env not found at root!"
+            echo "❌ .env not found!"
             exit 1
           else
-            echo "✅ .env found."
+            echo "✅ .env exists"
           fi
 
-      - name: Upload .env as artifact
+      - name: Upload .env
         uses: actions/upload-artifact@v4
         with:
           name: envfile
